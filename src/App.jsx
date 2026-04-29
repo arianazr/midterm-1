@@ -1,11 +1,13 @@
+// Arian Aziri Id : 132814
 import { useCallback, useEffect, useMemo, useState } from "react";
 import CommentCard from "./components/CommentCard.jsx";
 import RegisterComment from "./components/RegisterComment.jsx";
+
 function App() {
   const [comments, setComments] = useState(null);
   const [isLoading, setLoading] = useState(true);
 
-    const addCommentCallback = useCallback(createComment);
+  const addCommentCallback = useCallback(createComment);
   let averageRating = useMemo(() => {
     let sum = 0;
     if(comments == null) return;
@@ -25,7 +27,7 @@ function App() {
           setComments(data.map((comment) => {return {...comment, rating: 5, approved: false}}));
           setLoading(false);
         }).then((error) => {
-          // console.log(error); 
+          console.log(error); 
           setLoading(false);
         });
     }, [])
