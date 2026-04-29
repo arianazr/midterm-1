@@ -19,8 +19,7 @@ function CommentCard({comment})  {
             {isTopRated && <div> Your comment is top rated</div>}
             </p>
             <p>
-            approved: {comment.approved}
-            {comment.approved && <div>Your comment is approved</div>}
+            approved: {comment.approved ? <div>Your comment is approved</div> : <div>Your Comment is not approved</div>}
             </p>
         </div>
     </>

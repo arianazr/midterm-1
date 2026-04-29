@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 function RegisterComment({onSubmit}) {
     const [name, setName] = useState("");
@@ -6,7 +6,7 @@ function RegisterComment({onSubmit}) {
     const [body, setBody] = useState("");
     const [rating, setRating] = useState(0);
     const [approved, setApproved] = useState(false);
-
+    const nameInputRef = useRef();
     function sumbit() {
         if(!name || !email || !body ) return;
         onSubmit({
@@ -16,6 +16,7 @@ function RegisterComment({onSubmit}) {
             rating: rating,
             approved: approved,
         });
+        nameInputRef.current.focus();
         resetValues();
     }
 
@@ -27,7 +28,7 @@ function RegisterComment({onSubmit}) {
         setApproved(false);
     }
     return <>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+        <input ref={nameInputRef} type="text" value={name} onChange={(e) => setName(e.target.value)}/>
         <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
         <input type="text" value={body} onChange={(e) => setBody(e.target.value)}/>
         <input type="number" value={rating} onChange={(e) => setRating(e.target.value)}/>

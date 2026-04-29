@@ -1,16 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CommentCard from "./components/CommentCard.jsx";
 import RegisterComment from "./components/RegisterComment.jsx";
 function App() {
   const [comments, setComments] = useState(null);
   const [isLoading, setLoading] = useState(true);
+
+    const addCommentCallback = useCallback(createComment);
   let averageRating = useMemo(() => {
     let sum = 0;
-    for(let i = 0 ; i < comments.size; i++) {
-        sum += comments[i].rating;
-    }
+    if(comments == null) return;
+    if(comments.length === 0) return;
+    comments.forEach((ele) => {
+      sum += ele.rating;
+    })
     return sum / comments.length;
   }, [comments]);
+
   function createComment(newComment) {
       setComments([newComment, ...comments]);
   }
@@ -44,7 +49,7 @@ function App() {
       </div>
       <div>
         <h1>Created A New Comment</h1>
-        <RegisterComment onSubmit={createComment}></RegisterComment>
+        <RegisterComment onSubmit={addCommentCallback}></RegisterComment>
       </div>
       {
         ...comments.map((comment) => {
